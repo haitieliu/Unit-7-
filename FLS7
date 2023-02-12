@@ -126,3 +126,63 @@ mean(sets$CMN)
 mean(sets$CMSEN)
 mean(sets$CMSPE)
 
+
+################ second slide
+
+titanicClean = Titanic %>% filter(!is.na(Age) & !is.na(Pclass))
+
+set.seed(4)
+
+trainIndices = sample(seq(1:length(titanicClean$Age)),round(.7*length(titanicClean$Age)))
+
+trainTitanic = titanicClean[trainIndices,]
+
+testTitanic = titanicClean[-trainIndices,]
+
+
+model=naiveBayes(trainTitanic[,c(3,5,6)],trainTitanic$Survived)
+result=predict(model,testTitanic[,c(3,5,6)],testTitanic$Survived,type = NULL)
+CM=confusionMatrix(table(result,testTitanic$Survived))
+
+
+
+############# problem 2
+
+
+CMN=numeric(100)
+CMSEN=numeric(100)
+CMSPE=numeric(100)
+
+for (i in 1:100){
+  
+  titanicClean = Titanic %>% filter(!is.na(Age) & !is.na(Pclass))
+  
+  trainIndices = sample(seq(1:length(titanicClean$Age)),round(.7*length(titanicClean$Age)))
+  
+  trainTitanic = titanicClean[trainIndices,]
+  
+  testTitanic = titanicClean[-trainIndices,]
+  
+  model=naiveBayes(trainTitanic[,c(3,5,6)],trainTitanic$Survived)
+  result=predict(model,testTitanic[,c(3,5,6)],testTitanic$Survived,type = NULL)
+  CM=confusionMatrix(table(result,testTitanic$Survived))
+  CMN[i]=CM$overall[1]
+  CMSEN[i]=CM$byClass[1]
+  CMSPE[i]=CM$byClass[2]
+}
+
+sets=data.frame(CMN,CMSEN,CMSPE)
+
+var(sets$CMN)
+var(sets$CMSEN)
+var(sets$CMSPE)
+
+mean(sets$CMN)
+mean(sets$CMSEN)
+mean(sets$CMSPE)
+
+
+#####problem 3
+
+
+iris

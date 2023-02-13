@@ -186,12 +186,12 @@ mean(sets$CMSPE)
 
 
 
-accuracy=c(0.95,0.6770)
-sensitivity=c(1.0000,0.4286)
-specificity=c(0.8667,1.0000)
-category=c("h","s")
-df=data.frame(accuracy,sensitivity,specificity,category)
+df1 <- data.frame(c("Accuracy","Accuracy", "Sensitivity","Sensitivity", "Specificity","Specificity"), c(0.95,0.6770,1.0000,0.4286,0.8667,1.0000), c("headline","snippet","headline","snippet","headline","snippet"))
+colnames(df1) <- c("stats", "Value", "Category")
 
-df %>%
-  ggplot(aes(x=accuracy))+geom_bar(stat = "count")
+df1 %>%
+  ggplot() + geom_bar(data = df1, aes(x = stats, y =Value, fill =Category), position = "dodge", stat = "identity")+
+  ggtitle("Headline vs. Snippet")
+
          
+

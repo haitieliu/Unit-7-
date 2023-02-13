@@ -185,4 +185,13 @@ mean(sets$CMSPE)
 #####problem 3
 
 
-iris
+
+accuracy=c(0.95,0.6770)
+sensitivity=c(1.0000,0.4286)
+specificity=c(0.8667,1.0000)
+category=c("h","s")
+df=data.frame(accuracy,sensitivity,specificity,category)
+
+df %>%
+  ggplot(aes(x=accuracy))+geom_bar(stat = "count")
+         
